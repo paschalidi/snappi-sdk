@@ -1,0 +1,59 @@
+{
+  "id": "snappi-visual-test",
+  "viewports": [
+    {
+      "label": "phone",
+      "width": 320,
+      "height": 480
+    },
+    {
+      "label": "tablet",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "label": "desktop",
+      "width": 1920,
+      "height": 1080
+    }
+  ],
+  "scenarios": [
+    {
+      "label": "Primary",
+      "url": "http://localhost:6006/iframe.html?args=&id=components-button--primary&viewMode=story",
+      "waitForSelector": "#storybook-root",
+      "delay": 800,
+      "misMatchThreshold": 0.1
+    },
+    {
+      "label": "Secondary",
+      "url": "http://localhost:6006/iframe.html?args=&id=components-button--secondary&viewMode=story",
+      "waitForSelector": "#storybook-root",
+      "delay": 800,
+      "misMatchThreshold": 0.1
+    },
+    {
+      "label": "Ghost",
+      "url": "http://localhost:6006/iframe.html?args=&id=components-button--ghost&viewMode=story",
+      "waitForSelector": "#storybook-root",
+      "delay": 800,
+      "misMatchThreshold": 0.1
+    },
+    {
+      "label": "Loading",
+      "url": "http://localhost:6006/iframe.html?args=&id=components-button--loading&viewMode=story",
+      "waitForSelector": "#storybook-root",
+      "delay": 800,
+      "misMatchThreshold": 0.1
+    },
+    {
+      "label": "Default",
+      "url": "http://localhost:6006/iframe.html?args=&id=components-card--default&viewMode=story",
+      "waitForSelector": "#storybook-root",
+      "delay": 800,
+      "misMatchThreshold": 0.1
+    }
+  ],
+  "defaultDelay": 800,
+  "defaultMisMatchThreshold": 0.1
+}

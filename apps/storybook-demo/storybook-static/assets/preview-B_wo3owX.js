@@ -1,0 +1,1 @@
+import{j as o}from"./jsx-runtime-BjG_zV1W.js";const e={parameters:{controls:{matchers:{color:/(background|color)$/i,date:/Date$/i}},layout:"fullscreen",backgrounds:{disable:!0}}},s=[r=>o.jsx("div",{id:"storybook-root",style:{margin:0,padding:0},children:o.jsx(r,{})})];export{s as decorators,e as default};

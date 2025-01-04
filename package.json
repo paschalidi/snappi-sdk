@@ -1,0 +1,20 @@
+{
+  "name": "reshot",
+  "description": "reshot monorepo",
+  "private": true,
+  "scripts": {
+    "build:storybook": "pnpm --filter @reshot/storybook-demo build:storybook",
+    "dev": "pnpm --parallel -r dev",
+    "lint": "pnpm -r lint"
+  },
+  "devDependencies": {
+    "@reshot-sdk/snappi": "workspace:^",
+    "@swc/core": "^1.10.1",
+    "@types/react": "^19.0.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "react": "^19.0.0"
+  }
+}
