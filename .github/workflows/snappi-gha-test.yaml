@@ -1,0 +1,39 @@
+name: Visual Testing
+on:
+  pull_request:
+    paths:
+      - 'apps/storybook-demo/**'
+  workflow_dispatch:
+
+jobs:
+  visual-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .    # This sets the default for all steps
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: pnpm install -w      # No need for working-directory here
+
+      - name: Build Storybook
+        run: pnpm run build:storybook
+
+      - name: Run Visual Tests
+        uses: ./packages/github-action
+        with:
+          api-key: "empty-for-now"
+          storybook-build: 'build:storybook'
+          storybook-dir: 'apps/storybook-demo/storybook-static'
+          delay: '800'
+          threshold: '0.1'

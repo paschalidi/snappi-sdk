@@ -1,0 +1,23 @@
+{
+  "pull_request": {
+    "number": 1,
+    "head": {
+      "ref": "main",
+      "sha": "HEAD"
+    },
+    "base": {
+      "ref": "main",
+      "sha": "HEAD~1" 
+    }
+  },
+  "repository": {
+    "name": "snappi-sdk",
+    "full_name": "paschalidi/snappi-sdk",
+    "owner": {
+      "login": "paschalidi"
+    },
+    "clone_url": "git@github.com:paschalidi/snappi-sdk.git",
+    "ssh_url": "git@github.com:paschalidi/snappi-sdk.git",
+    "git_url": "git@github.com:paschalidi/snappi-sdk.git"
+  }
+}

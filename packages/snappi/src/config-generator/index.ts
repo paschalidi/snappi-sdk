@@ -29,7 +29,7 @@ export async function generateConfig(options: ConfigGeneratorOptions = {}): Prom
 
     // Create the complete config
     const config: VisualTestConfig = {
-      id: 'snappi-visual-test',
+      id: 'snappi-visual-test', //todo: generate a unique id
       viewports,
       scenarios,
       defaultDelay: DEFAULT_SCENARIO_CONFIG.delay,

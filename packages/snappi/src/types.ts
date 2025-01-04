@@ -23,6 +23,7 @@ export interface VisualTestConfig {
   id: string;
   mode?: 'test' | 'reference';
   forceReference?: boolean;
+  maxConcurrency?: number;
   verbose?: boolean;
   viewports: ViewportConfig[];
   scenarios: ScenarioConfig[];

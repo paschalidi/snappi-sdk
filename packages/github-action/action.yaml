@@ -1,0 +1,40 @@
+name: 'Snappi Visual Testing'
+description: 'Visual regression testing for Storybook components'
+branding:
+  icon: 'eye'
+  color: 'blue'
+
+inputs:
+  api-key:
+    description: 'Snappi API Key'
+    required: true
+  storybook-build:
+    description: 'Storybook build command'
+    default: 'build-storybook'
+  storybook-dir:
+    description: 'Storybook static directory'
+    default: 'storybook-static'
+  delay:
+    description: 'Default delay between actions in ms'
+    default: '800'
+  threshold:
+    description: 'Default threshold for visual differences'
+    default: '0.1'
+  max-retries:
+    description: 'Maximum retry attempts for failed screenshots'
+    default: '2'
+  maxConcurrency:
+    description: 'Maximum number of concurrent browsers'
+    default: '3'
+
+outputs:
+  result-summary:
+    description: 'Summary of test results'
+  failed-tests:
+    description: 'Number of failed tests'
+  total-tests:
+    description: 'Total number of tests run'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

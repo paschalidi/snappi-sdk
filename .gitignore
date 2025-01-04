@@ -6,6 +6,7 @@
 **/node_modules
 /.pnp
 .pnp.js
+.pnpm-store
 
 # testing
 /coverage
@@ -15,7 +16,7 @@
 
 # production
 **/build
-**/packages/snappi/dist
+**/packages/**/dist
 
 # misc
 .DS_Store

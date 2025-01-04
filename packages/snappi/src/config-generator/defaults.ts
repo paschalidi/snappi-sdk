@@ -21,5 +21,5 @@ export const DEFAULT_VIEWPORTS: ViewportConfig[] = [
 
 export const DEFAULT_SCENARIO_CONFIG: Partial<ScenarioConfig> = {
   delay: 800,
-  misMatchThreshold: 0.1,
+  misMatchThreshold: 0.1
 };
