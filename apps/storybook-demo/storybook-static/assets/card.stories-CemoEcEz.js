@@ -1,6 +1,0 @@
-import{j as e}from"./jsx-runtime-BjG_zV1W.js";const t=({title:o,description:n,isLoading:i=!1})=>i?e.jsxs("div",{className:"w-72 rounded-lg shadow-lg p-4 animate-pulse",children:[e.jsx("div",{className:"h-48 bg-gray-300 rounded mb-4"}),e.jsx("div",{className:"h-6 bg-gray-300 rounded mb-2"}),e.jsx("div",{className:"h-4 bg-gray-300 rounded w-2/3"})]}):e.jsx("div",{className:"w-72 rounded-lg shadow-lg overflow-hidden",children:e.jsxs("div",{className:"p-4",children:[e.jsx("h3",{className:"text-xl font-semibold mb-2",children:o}),e.jsx("p",{className:"text-gray-600",children:n})]})});t.__docgenInfo={description:"",methods:[],displayName:"Card",props:{isLoading:{defaultValue:{value:"false",computed:!1},required:!1}}};const c={title:"Components/Card",component:t},s={args:{title:"Card Title",description:"This is a description of the card content."}};var a,r,d;s.parameters={...s.parameters,docs:{...(a=s.parameters)==null?void 0:a.docs,source:{originalSource:`{
-  args: {
-    title: 'Card Title',
-    description: 'This is a description of the card content.'
-  }
-}`,...(d=(r=s.parameters)==null?void 0:r.docs)==null?void 0:d.source}}};const m=["Default"];export{s as Default,m as __namedExportsOrder,c as default};

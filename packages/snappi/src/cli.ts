@@ -1,11 +1,24 @@
 #!/usr/bin/env node
 import { program } from 'commander';
 import { generateConfig } from './config-generator';
-import { mkdir } from 'fs/promises';
-import { join } from 'path';
-import { captureReferences, runVisualTests } from "./index";
+import { mkdir, readFile, writeFile } from 'fs/promises';
+import { dirname, join } from 'path';
+import { captureReferences } from "./index";
+import { createApiConfig, pollForResults, uploadScreenshots, withRetry } from "./services/api";
+import { createBrowser, createPage, takeScreenshot } from "./browser";
+import ora from 'ora';
+import { Screenshot } from "./services/types";
 
-console.log('Snappi CLI');
+const loadConfig = async (configPath: string) => {
+  try {
+    const configFile = await readFile(join(process.cwd(), configPath), 'utf8');
+    return JSON.parse(configFile);
+  } catch (error) {
+    throw new Error(`Failed to load config file: ${error instanceof Error ? error.message : String(error)}`);
+  }
+};
+
+
 program
   .name('snappi')
   .description('Visual regression testing made simple')
@@ -42,7 +55,7 @@ program
   .action(async (options) => {
     try {
       console.log('Reading configuration...');
-      const config = require(join(process.cwd(), options.config));
+      const config = await loadConfig(options.config);
 
       console.log('Starting reference capture...');
       await captureReferences({
@@ -60,46 +73,111 @@ program
   });
 
 
+
 program
   .command('test')
-  .description('Capture reference screenshots for all scenarios')
+  .description('Run visual regression tests')
   .option('-c, --config <path>', 'Path to config file', './snappi.config.json')
   .option('-o, --output <dir>', 'Output directory', '.snappi')
-  .option('-m, --mode <mode>', 'Capture mode: reference or test', 'baseline')
+  .option('-k, --api-key <key>', 'Snappi API key')
+  .option('-u, --api-url <url>', 'Snappi API URL')
+  .option('-t, --timeout <ms>', 'Maximum wait time in milliseconds', '600000')
   .action(async (options) => {
+    const spinner = ora('Snappi begins').start();
     try {
-      console.log('Setting up snapshot directories...');
-      const snappiDir = options.output;
-      const referencesDir = join(snappiDir, 'references');
-      const testsDir = join(snappiDir, 'tests');
-      const diffsDir = join(snappiDir, 'diffs');
+      // Validate API key
+      const apiKey = options.apiKey || process.env.SNAPPI_API_KEY;
+      if (!apiKey) {
+        throw new Error('API key is required. Use --api-key or set SNAPPI_API_KEY environment variable');
+      }
 
-      // Create directories
-      await mkdir(snappiDir, { recursive: true });
-      await mkdir(referencesDir, { recursive: true });
-      await mkdir(testsDir, { recursive: true });
-      await mkdir(diffsDir, { recursive: true });
-
-      console.log('Reading configuration...');
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const config = require(join(process.cwd(), options.config));
-
-      console.log('Starting capture process...');
-      await runVisualTests({
-        ...config,
-        paths: {
-          baselineDir: referencesDir,
-          compareDir: testsDir,
-          diffDir: diffsDir
-        }
+      // Create API config
+      const apiConfig = createApiConfig(apiKey, {
+        baseUrl: options.apiUrl,
+        maxWaitTime: parseInt(options.timeout)
       });
 
-      console.log('✨ Screenshots captured successfully!');
+      // Read test config
+      spinner.text = 'Reading configuration...';
+      const config = await loadConfig(options.config);
+
+      // Capture screenshots
+      spinner.text = 'Capturing screenshots...';
+      const browser = await createBrowser();
+      const screenshots: Screenshot[] = [];
+
+      for (const scenario of config.scenarios) {
+        for (const viewport of config.viewports) {
+          spinner.text = `📸 Capturing: ${scenario.label} (${viewport.label})`;
+          const page = await createPage(browser, viewport, scenario);
+
+          try {
+            const screenshot = await takeScreenshot(
+              page,
+              scenario,
+              0,
+              config.maxRetries,
+              config.defaultDelay
+            );
+
+            // Save screenshot temporarily
+            const tempPath = join(options.output, 'temp', `${scenario.label}_${viewport.label}.png`);
+            await mkdir(dirname(tempPath), { recursive: true });
+            await writeFile(tempPath, screenshot);
+
+            screenshots.push({
+              path: tempPath,
+              label: scenario.label,
+              viewport: viewport.label
+            });
+
+          } finally {
+            await page.close();
+          }
+        }
+      }
+
+      await browser.close();
+
+      // Upload screenshots with retry
+      spinner.text = 'Uploading screenshots to Snappi...';
+      const runId = await withRetry(
+        () => uploadScreenshots(screenshots, apiConfig),
+        3
+      );
+      spinner.succeed(`Started test run: ${runId}`);
+
+      // Poll for results
+      spinner.start('Processing screenshots...');
+      const results = await pollForResults(
+        runId,
+        apiConfig,
+        (completed, total) => {
+          spinner.text = `Processing screenshots... ${completed}/${total}`;
+        }
+      );
+      spinner.succeed('Processing complete!');
+
+      // Display results
+      const passed = results.filter(r => r.passed).length;
+      const total = results.length;
+      console.log(`\n✨ Test run complete: ${passed}/${total} passed`);
+
+      if (passed < total) {
+        console.log('\nFailed tests:');
+        results
+          .filter(r => !r.passed)
+          .forEach(r => {
+            console.log(`❌ ${r.scenario} (${r.viewport}): ${r.error || `Diff: ${r.diffPercentage?.toFixed(2)}%`}`);
+          });
+        process.exit(1);
+      }
+
     } catch (error) {
+      spinner?.fail('Test run failed');
       console.error('Error:', error instanceof Error ? error.message : error);
       process.exit(1);
     }
   });
-
 
 program.parse();

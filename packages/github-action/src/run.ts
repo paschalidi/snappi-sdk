@@ -7,6 +7,15 @@ import { ActionConfig } from './config';
 export async function run(config: ActionConfig): Promise<TestResult[]> {
   // Ensure npm is available
   await which('npm', true);
+  // Install Playwright browsers first
+  core.startGroup('Installing Playwright browsers');
+  try {
+    await exec('npx', ['playwright', 'install', 'chromium']);
+  } catch (error) {
+    core.error('Failed to install Playwright browsers');
+    throw error;
+  }
+  core.endGroup();
 
   // Build Storybook
   core.startGroup('Building Storybook');

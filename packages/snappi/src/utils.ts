@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from 'fs/promises';
 import { join } from 'path';
 import { PNG } from 'pngjs';
-import pixelmatch = require('pixelmatch');
+import pixelmatch from 'pixelmatch';
 import type { VisualTestConfig } from './types';
 
 export function generateTestRunId(): string {

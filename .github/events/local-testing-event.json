@@ -7,7 +7,7 @@
     },
     "base": {
       "ref": "main",
-      "sha": "HEAD~1" 
+      "sha": "HEAD~1"
     }
   },
   "repository": {

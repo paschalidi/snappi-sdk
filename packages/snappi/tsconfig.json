@@ -18,14 +18,15 @@
     "isolatedModules": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": true,
+
   },
   "include": [
-    "packages/src/**/*"
+    "src/**/*"
   ],
   "exclude": [
-    "../../node_modules",
+  "node_modules",
     "dist",
     "**/*.test.ts",
     "**/*.spec.ts"

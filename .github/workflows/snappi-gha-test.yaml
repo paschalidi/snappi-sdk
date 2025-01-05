@@ -10,30 +10,29 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: .    # This sets the default for all steps
+        working-directory: apps/storybook-demo
 
     steps:
       - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
         with:
-          version: 8
+          version: 9
+          run_install: false
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 20
 
-      - name: Install Dependencies
-        run: pnpm install -w      # No need for working-directory here
-
-      - name: Build Storybook
-        run: pnpm run build:storybook
+      - name: Install dependencies
+        run: npm install
 
       - name: Run Visual Tests
-        uses: ./packages/github-action
+        uses: ./packages/github-action     # Changed to be relative to repo root
         with:
           api-key: "empty-for-now"
           storybook-build: 'build:storybook'
-          storybook-dir: 'apps/storybook-demo/storybook-static'
+          storybook-dir: 'storybook-static'
           delay: '800'
           threshold: '0.1'

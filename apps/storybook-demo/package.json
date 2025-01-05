@@ -1,8 +1,6 @@
 {
   "name": "@reshot/storybook-demo",
-  "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "dev": "storybook dev -p 6006",
     "build:storybook": "storybook build",
@@ -14,26 +12,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@craco/craco": "^7.1.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^19",
+    "react-dom": "^19"
   },
   "devDependencies": {
     "@reshot-sdk/snappi": "workspace:*",
-    "@storybook/addon-essentials": "^8.4.7",
-    "@storybook/addon-interactions": "^8.4.7",
-    "@storybook/addon-links": "^8.4.7",
-    "@storybook/addon-onboarding": "^8.4.7",
-    "@storybook/blocks": "^8.4.7",
     "@storybook/react": "^8.4.7",
     "@storybook/react-vite": "^8.4.7",
-    "@storybook/test": "^8.4.7",
-    "@types/react": "^19.0.2",
-    "@types/react-dom": "^19.0.2",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.49",
     "storybook": "^8.4.7",
-    "tailwindcss": "^3.3.5",
-    "typescript": "^5.0.0"
+    "typescript": "^4.9.5"
   }
 }
