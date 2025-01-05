@@ -1,0 +1,16 @@
+/target
+.env
+.idea
+
+/terraform/terraform.tfvars
+
+/migration/target
+
+# Terraform
+*.terraform
+*.tfstate
+*.tfstate.*
+*.tfvars
+
+.DS_Store
+terafform/kubeconfig
