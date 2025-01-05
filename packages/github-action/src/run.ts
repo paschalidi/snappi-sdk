@@ -1,7 +1,7 @@
 import * as core from '@actions/core';
 import { exec } from '@actions/exec';
 import { which } from '@actions/io';
-import { runVisualTests, TestResult } from '@reshot-sdk/snappi';
+import { runVisualTests, TestResult } from '@snappi-sdk/cli';
 import { ActionConfig } from './config';
 
 export async function run(config: ActionConfig): Promise<TestResult[]> {

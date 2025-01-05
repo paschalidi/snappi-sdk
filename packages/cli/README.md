@@ -17,13 +17,13 @@ Snappi is a modern visual regression testing tool designed to work seamlessly wi
 
 ```bash
 # Using npm
-npm install @reshot-sdk/snappi --save-dev
+npm install @snappi-sdk/cli --save-dev
 
 # Using pnpm
-pnpm add -D @reshot-sdk/snappi
+pnpm add -D @snappi-sdk/cli
 
 # Using yarn
-yarn add -D @reshot-sdk/snappi
+yarn add -D @snappi-sdk/cli
 ```
 
 ## Usage

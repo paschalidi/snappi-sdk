@@ -15,7 +15,7 @@
   "dependencies": {
     "@actions/core": "^1.10.1",
     "@actions/github": "^6.0.0",
-    "@reshot-sdk/snappi": "workspace:*"
+    "@snappi-sdk/cli": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.11.16",

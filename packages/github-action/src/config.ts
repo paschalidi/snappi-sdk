@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import { VisualTestConfig } from '@reshot-sdk/snappi';
+import { VisualTestConfig } from '@snappi-sdk/cli';
 
 export interface ActionConfig extends VisualTestConfig {
   apiKey: string;

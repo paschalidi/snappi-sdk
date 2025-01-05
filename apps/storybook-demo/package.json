@@ -16,7 +16,7 @@
     "react-dom": "^19"
   },
   "devDependencies": {
-    "@reshot-sdk/snappi": "workspace:*",
+    "@snappi-sdk/cli": "workspace:*",
     "@storybook/react": "^8.4.7",
     "@storybook/react-vite": "^8.4.7",
     "@types/react": "^19",

@@ -21,9 +21,9 @@ importers:
         specifier: ^19
         version: 19.0.0(react@19.0.0)
     devDependencies:
-      '@reshot-sdk/snappi':
+      '@snappi-sdk/cli':
         specifier: workspace:*
-        version: link:../../packages/snappi
+        version: link:../../packages/cli
       '@storybook/react':
         specifier: ^8.4.7
         version: 8.4.7(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(storybook@8.4.7(prettier@3.4.2))(typescript@4.9.5)
@@ -46,41 +46,7 @@ importers:
         specifier: ^4.9.5
         version: 4.9.5
 
-  packages/github-action:
-    dependencies:
-      '@actions/core':
-        specifier: ^1.10.1
-        version: 1.11.1
-      '@actions/github':
-        specifier: ^6.0.0
-        version: 6.0.0
-      '@reshot-sdk/snappi':
-        specifier: workspace:*
-        version: link:../snappi
-    devDependencies:
-      '@types/node':
-        specifier: ^20.11.16
-        version: 20.17.11
-      '@vercel/ncc':
-        specifier: ^0.38.1
-        version: 0.38.3
-      eslint:
-        specifier: ^9.17.0
-        version: 9.17.0
-      lint-staged:
-        specifier: ^15.2.2
-        version: 15.3.0
-      prettier:
-        specifier: ^3.2.5
-        version: 3.4.2
-      rimraf:
-        specifier: ^5.0.5
-        version: 5.0.10
-      typescript:
-        specifier: ^5.3.3
-        version: 5.7.2
-
-  packages/snappi:
+  packages/cli:
     dependencies:
       '@playwright/test':
         specifier: ^1.49.1
@@ -158,6 +124,40 @@ importers:
       vitest:
         specifier: ^0.34.6
         version: 0.34.6(playwright@1.49.1)
+
+  packages/github-action:
+    dependencies:
+      '@actions/core':
+        specifier: ^1.10.1
+        version: 1.11.1
+      '@actions/github':
+        specifier: ^6.0.0
+        version: 6.0.0
+      '@snappi-sdk/cli':
+        specifier: workspace:*
+        version: link:../cli
+    devDependencies:
+      '@types/node':
+        specifier: ^20.11.16
+        version: 20.17.11
+      '@vercel/ncc':
+        specifier: ^0.38.1
+        version: 0.38.3
+      eslint:
+        specifier: ^9.17.0
+        version: 9.17.0
+      lint-staged:
+        specifier: ^15.2.2
+        version: 15.3.0
+      prettier:
+        specifier: ^3.2.5
+        version: 3.4.2
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.10
+      typescript:
+        specifier: ^5.3.3
+        version: 5.7.2
 
 packages:
 
